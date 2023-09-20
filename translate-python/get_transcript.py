@@ -23,6 +23,6 @@ def get_transcript_from_url(url):
         raise ValueError("Invalid YouTube URL")
 
 # Example usage:
-url = "https://www.youtube.com/watch?v=3jGYHuBrYYQ"
-print(get_transcript_from_url(url))
+# url = "https://www.youtube.com/watch?v=3jGYHuBrYYQ"
+# print(get_transcript_from_url(url))
 

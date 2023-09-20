@@ -1,0 +1,7 @@
+python-dotenv
+requests
+youtube-transcript-api
+langchain
+google-cloud-aiplatform
+streamlit
+nltk
