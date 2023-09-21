@@ -4,17 +4,45 @@ from get_transcript import get_transcript_from_url
 from summarize import summarize_text
 from summarize import random_sentences_from_text
 
+def summarize_youtube_video(url, num_sentences=800):
+    try:
+        # Get the transcript from the YouTube URL
+        print("Getting transcript...")
+        transcript = get_transcript_from_url(url)
+        print(f"Transcript retrieved: {transcript[:100]}...")  # Print the first 100 characters
+
+        # Shorten the transcript
+        print(f"Shortening transcript to {num_sentences} sentences...")
+        shortened_transcript = random_sentences_from_text(transcript, num_sentences)
+        print(f"Transcript shortened: {shortened_transcript[:100]}...")  # Print the first 100 characters
+
+        # # Summarize the shortened transcript
+        # print("Summarizing transcript...")
+        # summary = summarize_text(shortened_transcript)
+        # print("Transcript summarized.")
+
+        return shortened_transcript
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        return str(e)
+
+# Example usage:
+if __name__ == "__main__":
+    youtube_url = "https://www.youtube.com/watch?v=3jGYHuBrYYQ"  # Replace with your YouTube URL
+    num_sentences = 800  # Adjust the number of sentences as needed
+    summarized_text = summarize_youtube_video(youtube_url, num_sentences)
+    print("Summarized text:")
+    print(summarized_text)
 
 
-def summarize_transcript(youtube_url):
-	transcript = get_transcript_from_url(youtube_url)
-	shortened_text = random_sentences_from_text(transcript, num_sentences=500)
-	summary = summarize_text(shortened_text)
-	print(summary)
 
-url = "https://www.youtube.com/watch?v=3jGYHuBrYYQ"
-summarize_transcript(url)
-
+# def summarize_transcript(youtube_url):
+# 	transcript = get_transcript_from_url(youtube_url)
+# 	print(transcript)
+# 	shortened_text = random_sentences_from_text(transcript, num_sentences=500)
+# 	print(shortened_text)
+# 	# summary = summarize_text(shortened_text)
+# 	# print(summary)
 
 
 # # Function to generate a download link for the translated text
