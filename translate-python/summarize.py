@@ -12,21 +12,18 @@ import subprocess
 
 load_dotenv()
 
-nltk.download('punkt')  # Download the NLTK data (if not already downloaded)
+# Download NLTK data (if not already downloaded)
+nltk.download('punkt')
 
 # Check if the spaCy model is installed, and if not, install it
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
     subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-    nlp = spacy.load("en_core_web_sm")
-
-# Load the spaCy model
-nlp = spacy.load("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")  # Load the spaCy model
 
 # Preprocess the transcript
 def preprocess_transcript(transcript_text):
-    # Tokenize the transcript into sentences using spaCy
     doc = nlp(transcript_text)
     sentences = [sent.text for sent in doc.sents]
     return sentences
