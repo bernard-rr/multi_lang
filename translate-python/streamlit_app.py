@@ -3,7 +3,7 @@ import base64
 from get_transcript import get_transcript_from_url
 from summarize import summarize_text
 from summarize import preprocess_transcript
-from summarize import summarize_transcript_by_tokens
+from summarize import summarize_transcript
 
 def summarize_youtube_video(url):
     try:
@@ -13,8 +13,8 @@ def summarize_youtube_video(url):
         print(f"Transcript retrieved: {transcript[:100]}...")  # Print the first 100 characters
 
         # Shorten the transcript
-        shortened_transcript = random_sentences_from_text(transcript, num_sentences)
-        
+        shortened_transcript = summarize_transcript(transcript)
+
         print(f"Transcript shortened: {shortened_transcript[:100]}...")  # Print the first 100 characters
 
         # # Summarize the shortened transcript
@@ -30,8 +30,7 @@ def summarize_youtube_video(url):
 # Example usage:
 if __name__ == "__main__":
     youtube_url = "https://www.youtube.com/watch?v=3jGYHuBrYYQ"  # Replace with your YouTube URL
-    num_sentences = 800  # Adjust the number of sentences as needed
-    summarized_text = summarize_youtube_video(youtube_url, num_sentences)
+    summarized_text = summarize_youtube_video(youtube_url)
     print("Summarized text:")
     print(summarized_text)
 
