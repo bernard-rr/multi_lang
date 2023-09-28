@@ -15,14 +15,12 @@ load_dotenv()
 # Download NLTK data (if not already downloaded)
 nltk.download('punkt')
 
-model_path = '/usr/local/python/3.10.8/lib/python3.10/site-packages/spacy'
-
 # Check if the spaCy model is installed, and if not, install it
 try:
-    nlp = spacy.load(model_path)
+    nlp = spacy.load("en_core_web_sm")
 except OSError:
     subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-    nlp = spacy.load(model_path)  # Load the spaCy model
+    nlp = spacy.load("en_core_web_sm")  # Load the spaCy model
 
 # Preprocess the transcript
 def preprocess_transcript(transcript_text):
