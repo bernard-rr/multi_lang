@@ -5,54 +5,66 @@ from langchain.prompts import PromptTemplate
 import nltk
 import random
 from nltk.tokenize import sent_tokenize
+import spacy
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+import subprocess
 
 load_dotenv()
 
 nltk.download('punkt')  # Download the NLTK data (if not already downloaded)
 
-def break_transcript_into_sentences(text, max_words_per_sentence=10):
-    # Tokenize the input text into words
-    words = word_tokenize(text)
+# Check if the spaCy model is installed, and if not, install it
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load("en_core_web_sm")
 
-    # Initialize variables
-    sentences = []
-    current_sentence = []
+# Load the spaCy model
+nlp = spacy.load("en_core_web_sm")
 
-    # Iterate through the words and create sentences
-    for word in words:
-        current_sentence.append(word)
-
-        # Check if the current sentence exceeds the word limit
-        if len(current_sentence) >= max_words_per_sentence:
-            sentences.append(' '.join(current_sentence))
-            current_sentence = []
-
-    # Add the last sentence if it's not empty
-    if current_sentence:
-        sentences.append(' '.join(current_sentence))
-
+# Preprocess the transcript
+def preprocess_transcript(transcript_text):
+    # Tokenize the transcript into sentences using spaCy
+    doc = nlp(transcript_text)
+    sentences = [sent.text for sent in doc.sents]
     return sentences
 
-def random_sentences_from_text(text, num_sentences=800, max_words_per_sentence=10):
-    # Break the transcript into sentences
-    sentences = break_transcript_into_sentences(text, max_words_per_sentence)
+# Text summarization using TF-IDF
+def summarize_transcript(transcript_text, num_sentences=5):
+    sentences = preprocess_transcript(transcript_text)
+    
+    # Create a TF-IDF vectorizer
+    vectorizer = TfidfVectorizer()
 
-    # Ensure the requested number of sentences does not exceed the total number of sentences available
-    num_sentences = min(num_sentences, len(sentences))
+    # Calculate TF-IDF scores for sentences
+    tfidf_matrix = vectorizer.fit_transform(sentences)
 
-    # Randomly select `num_sentences` from the list of sentences
-    selected_sentences = random.sample(sentences, num_sentences)
+    # Calculate sentence scores based on TF-IDF
+    sentence_scores = tfidf_matrix.sum(axis=1)
 
-    # Combine the selected sentences into a shorter text
-    shorter_text = ' '.join(selected_sentences)
+    # Get the indices of the top-ranked sentences
+    top_sentence_indices = np.array(sentence_scores).flatten().argsort()[-num_sentences:][::-1]
 
-    return shorter_text
+    # Generate the summary
+    summary = [sentences[i] for i in top_sentence_indices]
+    return ' '.join(summary)
 
-# Example usage:
-original_text = "Your long transcript text here. It contains many sentences. Each sentence is separated by a period and does not have full stops. And there are a lot of details to condense."
+# YouTube transcript as a single string
+youtube_transcript = """
+    This is the YouTube transcript without punctuation and it's a long string.
+    It contains the spoken content from the video.
+    The transcript just flows as one long string.
+    You want to summarize this transcript.
+    """
 
-shortened_text = random_sentences_from_text(original_text, num_sentences=5, max_words_per_sentence=10)
-print(shortened_text)
+# Summarize the transcript
+summary = summarize_transcript(youtube_transcript)
+
+# Print the summary
+print(summary)
+
 
 
 def summarize_text(text):

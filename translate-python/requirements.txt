@@ -6,3 +6,5 @@ google-cloud-aiplatform
 streamlit
 nltk
 google-generativeai
+nltk
+spacy

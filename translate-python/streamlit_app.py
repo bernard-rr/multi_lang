@@ -2,9 +2,10 @@ import streamlit as st
 import base64
 from get_transcript import get_transcript_from_url
 from summarize import summarize_text
-from summarize import random_sentences_from_text
+from summarize import preprocess_transcript
+from summarize import summarize_transcript_by_tokens
 
-def summarize_youtube_video(url, num_sentences=800):
+def summarize_youtube_video(url):
     try:
         # Get the transcript from the YouTube URL
         print("Getting transcript...")
@@ -12,8 +13,8 @@ def summarize_youtube_video(url, num_sentences=800):
         print(f"Transcript retrieved: {transcript[:100]}...")  # Print the first 100 characters
 
         # Shorten the transcript
-        print(f"Shortening transcript to {num_sentences} sentences...")
         shortened_transcript = random_sentences_from_text(transcript, num_sentences)
+        
         print(f"Transcript shortened: {shortened_transcript[:100]}...")  # Print the first 100 characters
 
         # # Summarize the shortened transcript
