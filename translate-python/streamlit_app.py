@@ -17,12 +17,12 @@ def summarize_youtube_video(url):
 
         print(f"Transcript shortened: {shortened_transcript[:100]}...")  # Print the first 100 characters
 
-        # # Summarize the shortened transcript
-        # print("Summarizing transcript...")
-        # summary = summarize_text(shortened_transcript)
-        # print("Transcript summarized.")
+        # Summarize the shortened transcript
+        print("Summarizing transcript...")
+        summary = summarize_text(shortened_transcript)
+        print("Transcript summarized.")
 
-        return shortened_transcript
+        return summary
     except Exception as e:
         print(f"An error occurred: {str(e)}")
         return str(e)
