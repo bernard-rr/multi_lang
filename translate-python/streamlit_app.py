@@ -1,38 +1,41 @@
 import streamlit as st
 import base64
 from get_transcript import get_transcript_from_url
-from summarize import summarize_text
-from summarize import preprocess_transcript
-from summarize import summarize_transcript
+from summarize import summarize_text, summarize_transcript
 
-def summarize_youtube_video(url):
-    try:
-        # Get the transcript from the YouTube URL
-        print("Getting transcript...")
-        transcript = get_transcript_from_url(url)
-        print(f"Transcript retrieved: {transcript[:100]}...")  # Print the first 100 characters
+def main():
+    st.title("YouTube Transcript Summarizer")
 
-        # Shorten the transcript
-        shortened_transcript = summarize_transcript(transcript)
+    # Input for YouTube URL
+    youtube_url = st.text_input("Enter YouTube Video URL:")
 
-        print(f"Transcript shortened: {shortened_transcript[:100]}...")  # Print the first 100 characters
+    if st.button("Summarize"):
+        if youtube_url:
+            try:
+                st.info("Fetching and summarizing transcript. Please wait...")
 
-        # Summarize the shortened transcript
-        print("Summarizing transcript...")
-        summary = summarize_text(shortened_transcript)
-        print("Transcript summarized.")
+                # Get the transcript from the YouTube URL
+                transcript = get_transcript_from_url(youtube_url)
 
-        return summary
-    except Exception as e:
-        print(f"An error occurred: {str(e)}")
-        return str(e)
+                # Shorten the transcript
+                shortened_transcript = summarize_transcript(transcript)
 
-# Example usage:
+                # Summarize the shortened transcript
+                summary = summarize_text(shortened_transcript)
+
+                st.subheader("Summarized Transcript:")
+                st.write(summary)
+
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
+        else:
+            st.warning("Please provide a valid YouTube URL.")
+
+    st.write("Note: This app uses AI for summarization, and results may vary in accuracy.")
+
 if __name__ == "__main__":
-    youtube_url = "https://www.youtube.com/watch?v=3jGYHuBrYYQ"  # Replace with your YouTube URL
-    summarized_text = summarize_youtube_video(youtube_url)
-    print("Summarized text:")
-    print(summarized_text)
+    main()
+
 
 
 

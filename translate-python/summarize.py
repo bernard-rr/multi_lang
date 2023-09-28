@@ -51,21 +51,6 @@ def summarize_transcript(transcript_text, num_sentences=5):
     summary = [sentences[i] for i in top_sentence_indices]
     return ' '.join(summary)
 
-# YouTube transcript as a single string
-youtube_transcript = """
-    This is the YouTube transcript without punctuation and it's a long string.
-    It contains the spoken content from the video.
-    The transcript just flows as one long string.
-    You want to summarize this transcript.
-    """
-
-# Summarize the transcript
-summary = summarize_transcript(youtube_transcript)
-
-# Print the summary
-print(summary)
-
-
 
 def summarize_text(text):
     API_ENDPOINT = "us-central1-aiplatform.googleapis.com"
@@ -75,7 +60,10 @@ def summarize_text(text):
 
     prompt_template = PromptTemplate.from_template(
         '''
-        You are a professional summarizer of YouTube video transcripts. You know how to take the readers in a journey to make your summary interesting. You end the summary with suspense to try to get the user to watch the YouTube video. You also finish your summaries with a full stop because you are very calculative.
+        You are a professional summarizer of YouTube video transcripts. 
+        You know how to take the readers in a journey to make your summary interesting. 
+        You end the summary with suspense to try to get the user to watch the YouTube video. 
+        You also finish your summaries with a full stop because you are very calculative.
 
         Follow the instructions carefully and be calculative.
 
