@@ -36,7 +36,12 @@ def main():
 if __name__ == "__main__":
     main()
 
-
+# # Example usage:
+# if __name__ == "__main__":
+#     youtube_url = "https://www.youtube.com/watch?v=3jGYHuBrYYQ"  # Replace with your YouTube URL
+#     summarized_text = summarize_youtube_video(youtube_url)
+#     print("Summarized text:")
+#     print(summarized_text)
 
 
 # def summarize_transcript(youtube_url):
