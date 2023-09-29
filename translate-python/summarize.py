@@ -19,7 +19,7 @@ nltk.download('punkt')
 current_directory = os.getcwd()
 
 # Specify the relative path to the 'translate-python' directory
-relative_path = 'multi_lang/translate-python'
+relative_path = 'translate-python'
 
 # Construct the full path
 full_path = os.path.join(current_directory, relative_path)
