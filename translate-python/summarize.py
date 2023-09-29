@@ -16,7 +16,7 @@ load_dotenv()
 nltk.download('punkt')
 
 # Check if the spaCy model is installed, and if not, install it
-translate_python_dir = "translate-python"  # Replace with the actual path
+translate_python_dir = "/translate-python"  # Replace with the actual path
 
 # Switch to the translate-python directory
 os.chdir(translate_python_dir)
