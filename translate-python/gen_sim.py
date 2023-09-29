@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Check if the spaCy model is installed, and if not, install it
 
-translate_python_dir = "translate-python"  # Replace with the actual path
+translate_python_dir = "/translate-python"  # Replace with the actual path
 
 # Switch to the translate-python directory
 os.chdir(translate_python_dir)
