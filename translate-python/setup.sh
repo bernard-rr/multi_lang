@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install Python dependencies from requirements.txt
-pip install -r translate-python/requirements.txt
+pip install -r requirements.txt
 
 # Create .env file with ACCESS_TOKEN=""
 echo "ACCESS_TOKEN=\"\"" > .env

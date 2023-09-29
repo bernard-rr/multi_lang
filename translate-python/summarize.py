@@ -49,7 +49,7 @@ def summarize_transcript(transcript_text, num_sentences=5):
     return ' '.join(summary)
 
 
-def summarize_text(text):
+def summarize_text(text, language):
     API_ENDPOINT = "us-central1-aiplatform.googleapis.com"
     PROJECT_ID = "text-translation-399014"
     MODEL_ID = "text-bison@001"
@@ -61,14 +61,15 @@ def summarize_text(text):
         You know how to take the readers in a journey to make your summary interesting. 
         You end the summary with suspense to try to get the user to watch the YouTube video. 
         You also finish your summaries with a full stop because you are very calculative.
+        You also know multiple languages especially Spanish, Chinese and French.
 
         Follow the instructions carefully and be calculative.
 
-        In 300 words, give a detailed summary of this text: {text} 
+        In 300 words, give a detailed summary of this text: {text} in {language}
         '''
     )
 
-    formatted_prompt = prompt_template.format(text=text)
+    formatted_prompt = prompt_template.format(text=text, language=language)
 
     url = f"https://{API_ENDPOINT}/v1/projects/{PROJECT_ID}/locations/us-central1/publishers/google/models/{MODEL_ID}:predict"
 

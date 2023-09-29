@@ -3,11 +3,22 @@ import base64
 from get_transcript import get_transcript_from_url
 from summarize import summarize_text, summarize_transcript
 
+# Define the supported languages
+SUPPORTED_LANGUAGES = {
+    'English': 'en',
+    'Spanish': 'es',
+    'Chinese': 'zh',
+    'French': 'fr'
+}
+
 def main():
     st.title("YouTube Transcript Summarizer")
 
     # Input for YouTube URL
     youtube_url = st.text_input("Enter YouTube Video URL:")
+
+    # Dropdown for language selection
+    selected_language = st.selectbox("Select Language:", list(SUPPORTED_LANGUAGES.keys()))
 
     if st.button("Summarize"):
         if youtube_url:
@@ -20,8 +31,11 @@ def main():
                 # Shorten the transcript
                 shortened_transcript = summarize_transcript(transcript)
 
+                # Get the language code based on the selected language
+                language = SUPPORTED_LANGUAGES[selected_language]
+
                 # Summarize the shortened transcript
-                summary = summarize_text(shortened_transcript)
+                summary = summarize_text(shortened_transcript, language)
 
                 st.subheader("Summarized Transcript:")
                 st.write(summary)
