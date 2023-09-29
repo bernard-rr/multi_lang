@@ -16,11 +16,16 @@ load_dotenv()
 nltk.download('punkt')
 
 # Check if the spaCy model is installed, and if not, install it
+translate_python_dir = "translate-python"  # Replace with the actual path
+
+# Switch to the translate-python directory
+os.chdir(translate_python_dir)
+
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
     subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-    nlp = spacy.load("en_core_web_sm")  # Load the spaCy model
+    nlp = spacy.load("en_core_web_sm")
 
 # Preprocess the transcript
 def preprocess_transcript(transcript_text):
