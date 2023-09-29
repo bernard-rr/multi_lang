@@ -15,11 +15,17 @@ load_dotenv()
 # Download NLTK data (if not already downloaded)
 nltk.download('punkt')
 
-# Check if the spaCy model is installed, and if not, install it
-translate_python_dir = "/translate-python"  # Replace with the actual path
+# Get the current working directory
+current_directory = os.getcwd()
+
+# Specify the relative path to the 'translate-python' directory
+relative_path = 'multi_lang/translate-python'
+
+# Construct the full path
+full_path = os.path.join(current_directory, relative_path)
 
 # Switch to the translate-python directory
-os.chdir(translate_python_dir)
+os.chdir(full_path)
 
 try:
     nlp = spacy.load("en_core_web_sm")
