@@ -86,7 +86,7 @@ def summarize_text(text, language):
         ],
         "parameters": {
             "candidateCount": 1,
-            "maxOutputTokens": 256,
+            "maxOutputTokens": 400,
             "temperature": 0.0,
             "topP": 0.8,
             "topK": 40
