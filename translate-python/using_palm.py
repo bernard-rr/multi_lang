@@ -24,32 +24,29 @@ model = "models/text-bison-001"
 
 # Think about it step by step, and show your work.
 # """
-def using_palm(text, language):
+def using_palm(text, api_key):
+    palm.configure(api_key=api_key)
+
+    model = "models/text-bison-001"
     prompt_template = PromptTemplate.from_template(
         '''
         You are a professional summarizer of YouTube video transcripts. 
-        You know how to take the readers in a journey to make your summary interesting. 
+        You know how to take the readers on a journey to make your summary interesting. 
         You end the summary with suspense to try to get the user to watch the YouTube video. 
-        You also finish your summaries with a full stop because you are very calculative.
-        You also know multiple languages especially Spanish, Chinese and French.
-
-        Follow the instructions carefully and be calculative.
-
-        In 300 words, give a detailed summary of this text: {text} in {language}
+        In 300 words, give a detailed and fun summary of this text: ```{text}```
         '''
     )
 
-    formatted_prompt = prompt_template.format(text=text, language=language)
+    formatted_prompt = prompt_template.format(text=text)
 
     completion = palm.generate_text(
         model=model,
         prompt=formatted_prompt,
-        temperature=0,
-        # The maximum length of the response
+        temperature=0.0,
         max_output_tokens=800,
     )
 
-    print(completion.result)
+    return completion.result
 
 text = '''
 Then multiply the number of cats by the number 
@@ -60,4 +57,5 @@ of yarn per hat to find the total length of
 yarn used for hats: 9 hats * 4m / hat = 36m. Then add the length of yarn used for mittens and hats to find the total length of yarn used: 252m + 36m = 288m.
 '''
 language="Spanish"
-using_palm(text, language)
+summary=using_palm(text, API_KEY)
+print(summary)

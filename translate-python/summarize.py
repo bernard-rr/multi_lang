@@ -9,6 +9,7 @@ import spacy
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 import subprocess
+import google.generativeai as palm
 
 load_dotenv()
 
@@ -48,56 +49,80 @@ def summarize_transcript(transcript_text, num_sentences=5):
     summary = [sentences[i] for i in top_sentence_indices]
     return ' '.join(summary)
 
+def using_palm(text, api_key):
+    palm.configure(api_key=api_key)
 
-def summarize_text(text, language):
-    API_ENDPOINT = "us-central1-aiplatform.googleapis.com"
-    PROJECT_ID = "text-translation-399014"
-    MODEL_ID = "text-bison@001"
-    ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
-
+    model = "models/text-bison-001"
     prompt_template = PromptTemplate.from_template(
         '''
         You are a professional summarizer of YouTube video transcripts. 
-        You know how to take the readers in a journey to make your summary interesting. 
+        You know how to take the readers on a journey to make your summary interesting. 
         You end the summary with suspense to try to get the user to watch the YouTube video. 
-        You also finish your summaries with a full stop because you are very calculative.
-        You also know multiple languages especially Spanish, Chinese and French.
-
-        Follow the instructions carefully and be calculative.
-
-        In 300 words, give a detailed summary of this text: {text} in {language}
+        In 300 words, give a detailed and fun summary of this text: ```{text}```
         '''
     )
 
-    formatted_prompt = prompt_template.format(text=text, language=language)
+    formatted_prompt = prompt_template.format(text=text)
 
-    url = f"https://{API_ENDPOINT}/v1/projects/{PROJECT_ID}/locations/us-central1/publishers/google/models/{MODEL_ID}:predict"
+    completion = palm.generate_text(
+        model=model,
+        prompt=formatted_prompt,
+        temperature=0.0,
+        max_output_tokens=800,
+    )
 
-    headers = {
-        "Authorization": f"Bearer {ACCESS_TOKEN}",
-        "Content-Type": "application/json"
-    }
+    return completion.result
 
-    data = {
-        "instances": [
-            {
-                "content": f"{formatted_prompt}"
-            }
-        ],
-        "parameters": {
-            "candidateCount": 1,
-            "maxOutputTokens": 400,
-            "temperature": 0.0,
-            "topP": 0.8,
-            "topK": 40
-        }
-    }
 
-    response = requests.post(url, headers=headers, json=data)
-    translation_result = response.json()
-    content = translation_result['predictions'][0]['content']
+# def summarize_text(text, language):
+#     API_ENDPOINT = "us-central1-aiplatform.googleapis.com"
+#     PROJECT_ID = "text-translation-399014"
+#     MODEL_ID = "text-bison@001"
+#     ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
 
-    return content
+#     prompt_template = PromptTemplate.from_template(
+#         '''
+#         You are a professional summarizer of YouTube video transcripts. 
+#         You know how to take the readers in a journey to make your summary interesting. 
+#         You end the summary with suspense to try to get the user to watch the YouTube video. 
+#         You also finish your summaries with a full stop because you are very calculative.
+#         You also know multiple languages especially Spanish, Chinese and French.
+
+#         Follow the instructions carefully and be calculative.
+
+#         In 300 words, give a detailed summary of this text: {text} in {language}
+#         '''
+#     )
+
+#     formatted_prompt = prompt_template.format(text=text, language=language)
+
+#     url = f"https://{API_ENDPOINT}/v1/projects/{PROJECT_ID}/locations/us-central1/publishers/google/models/{MODEL_ID}:predict"
+
+#     headers = {
+#         "Authorization": f"Bearer {ACCESS_TOKEN}",
+#         "Content-Type": "application/json"
+#     }
+
+#     data = {
+#         "instances": [
+#             {
+#                 "content": f"{formatted_prompt}"
+#             }
+#         ],
+#         "parameters": {
+#             "candidateCount": 1,
+#             "maxOutputTokens": 400,
+#             "temperature": 0.0,
+#             "topP": 0.8,
+#             "topK": 40
+#         }
+#     }
+
+#     response = requests.post(url, headers=headers, json=data)
+#     translation_result = response.json()
+#     content = translation_result['predictions'][0]['content']
+
+#     return content
 
 # text_to_translate = '''
 # In that light, I'm currently looking to join an Engineering team where my 
