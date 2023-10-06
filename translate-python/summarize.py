@@ -20,7 +20,8 @@ nltk.download('punkt')
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
-    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+    python_executable = sys.executable  # Get the Python executable path
+    subprocess.run([python_executable, "-m", "spacy", "download", "en_core_web_sm"])
     nlp = spacy.load("en_core_web_sm")  # Load the spaCy model
 
 # Preprocess the transcript
