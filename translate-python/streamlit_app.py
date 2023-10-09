@@ -2,19 +2,25 @@ import streamlit as st
 import base64
 from get_transcript import get_transcript_from_url
 from summarize import using_palm, summarize_transcript
+from googletrans import LANGUAGES
+from lang_translator import translate_text
+
+# Create a list of supported languages with code and name pairs
+SUPPORTED_LANGUAGES = [(code, name) for code, name in LANGUAGES.items()]
 
 def main():
-    st.title("YouTube Transcript Summarizer")
+    st.title("YouTube Transcript Summarizer and Translator")
 
-    # Add a sidebar for API key input
+    # Add a sidebar for API key input and language selection
     with st.sidebar:
         st.subheader("API Configuration")
         api_key = st.text_input("Enter PALM2 API Key:", type="password")
-    
+        target_language = st.selectbox("Select Target Language:", SUPPORTED_LANGUAGES, format_func=lambda x: x[1])
+
     # Input for YouTube URL
     youtube_url = st.text_input("Enter YouTube Video URL:")
 
-    if st.button("Summarize"):
+    if st.button("Summarize and Translate"):
         if youtube_url:
             try:
                 if not api_key:
@@ -34,12 +40,18 @@ def main():
                     st.subheader("Summarized Transcript:")
                     st.write(summary)
 
+                    # Translate the summarized transcript
+                    translated_summary = translate_text(summary, target_language[0])  # Use the code from the selected pair
+
+                    st.subheader("Translated Summary:")
+                    st.write(translated_summary)
+
             except Exception as e:
                 st.error(f"An error occurred: {e}")
         else:
             st.warning("Please provide a valid YouTube URL.")
 
-    st.write("Note: This app uses AI for summarization, and results may vary in accuracy.")
+    st.write("Note: This app uses AI for summarization and translation, and results may vary in accuracy.")
 
 if __name__ == "__main__":
     main()
