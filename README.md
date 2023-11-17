@@ -1,8 +1,7 @@
-# Translate Python
-
-Translate Python is a Python package that allows you to easily translate YouTube video transcripts. With this package, you can extract the transcript from a YouTube video and translate it to your desired language.
+# Repository Name
 
 ## Table of Contents
+- [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
@@ -10,79 +9,73 @@ Translate Python is a Python package that allows you to easily translate YouTube
 - [License](#license)
 - [Contact](#contact)
 
+## Introduction
+
+This repository houses a Python application for translating and summarizing YouTube video transcripts. The application utilizes the [YouTube Transcript API](https://github.com/jdepoix/youtube-transcript-api) for retrieving the transcripts and leverages the [Streamlit](https://www.streamlit.io/) framework for building a user interface.
+
 ## Installation
 
-To use Translate Python, follow these steps:
+To run this application, please follow these steps:
 
-1. Clone the repository:
-
-   ```
-   git clone https://github.com/<username>/<repository>.git
-   ```
-
-2. Install the required dependencies by running the following command in the root directory:
+1. Clone the repository to your local machine:
 
    ```
-   pip install -r requirements.txt
+   git clone https://github.com/username/repository.git
+   ```
+
+2. Setup the Docker development container. Open a terminal or command prompt and navigate to the root folder of the cloned repository. Run the following command:
+
+   ```
+   docker-compose up -d
+   ```
+
+   This will create a development container using the specified Docker image.
+
+3. Install the required Python packages by running the following command:
+
+   ```
+   docker-compose exec app pip install -r requirements.txt
    ```
 
 ## Usage
 
-Before using Translate Python, make sure that you have the required Python version (3.8) installed on your machine. 
+To utilize the application, follow these steps:
 
-To translate a YouTube video transcript, follow these steps:
+1. Run the Streamlit app within the Docker development container:
 
-1. Create a Python script and import the necessary functions:
-
-   ```python
-   from translate-python.get_transcript import get_transcript_from_url
-   from translate-python.summarize import summarize_transcript
+   ```
+   docker-compose exec app streamlit run streamlit_app.py
    ```
 
-2. Get the transcript from the YouTube video URL:
+   This command will start the Streamlit application and launch it in your web browser.
 
-   ```python
-   url = "https://www.youtube.com/watch?v=3jGYHuBrYYQ"
-   transcript = get_transcript_from_url(url)
-   ```
+2. Input the YouTube video URL and select the target language from the dropdown menu.
 
-3. Summarize the transcript:
-
-   ```python
-   summarize_transcript(url)
-   ```
-
-4. Run the script to translate and summarize the transcript.
+3. Click the "Translate" button. The app will retrieve the transcript, translate it to the specified language, and display the translated transcript along with a download link.
 
 ## Features
 
-Translate Python offers the following features:
-
-- Extract YouTube video transcript.
-- Translate the transcript to different languages.
-- Summarize the translated transcript.
+- Translates YouTube video transcripts to multiple languages
+- Summarizes the translated transcript to a shorter version
+- Provides a download link for the translated transcript
 
 ## Contributing
 
-Contributions to Translate Python are welcome! To contribute, follow these steps:
+Contributions to this repository are welcome. If you would like to contribute, please follow these steps:
 
-1. Fork the repository.
-2. Create a new branch.
-3. Make your changes.
-4. Test your changes.
-5. Commit your changes.
-6. Push your changes to your forked repository.
-7. Create a pull request.
+1. Fork the repository
+2. Create a new branch
+3. Make your modifications
+4. Commit your changes
+5. Push the branch to your forked repository
+6. Open a pull request to the main repository
 
-Please make sure to follow the [code of conduct](CODE_OF_CONDUCT.md) when contributing.
+Please ensure that your contributions adhere to the repository's code style and conventions.
 
 ## License
 
-Translate Python is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-If you have any questions or suggestions, feel free to contact the project maintainers:
-
-- Email: [example@example.com](mailto:example@example.com)
-- GitHub: [@username](https://github.com/username)
+For any questions or inquiries, please contact [email protected]
