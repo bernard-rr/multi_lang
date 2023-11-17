@@ -1,10 +1,8 @@
-# Translate Python
+# Translate-Python
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+Translate-Python is a Python library that provides functionality for translating text and extracting transcripts from YouTube videos. It uses the Google Translate API and the YouTube Transcript API for its operations.
 
 ## Table of Contents
-
-- [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
@@ -12,141 +10,64 @@
 - [License](#license)
 - [Contact](#contact)
 
-## Introduction
-
-Translate Python is a Python package that provides functionality for translating and summarizing YouTube video transcripts. It utilizes the `youtube_transcript_api` and `googletrans` libraries to retrieve the transcript and perform language translation.
-
 ## Installation
 
-To install Translate Python, follow these steps:
+To use Translate-Python, you need to follow these installation steps:
 
-1. Clone this repository:
-
-```
-git clone https://github.com/username/repo.git
-```
-
-2. Change into the repository directory:
-
-```
-cd repo
-```
-
-3. Install the required Python dependencies from `requirements.txt`:
-
-```
-pip install -r requirements.txt
-```
-
-4. Create a `.env` file with an empty `ACCESS_TOKEN`:
-
-```
-echo "ACCESS_TOKEN=\"\"" > .env
-```
-
-5. Install the Google Cloud Code VS Code extension:
-
-```
-code --install-extension GoogleCloudTools.cloudcode
-```
-
-6. Install the Google Cloud SDK:
-
-```
-curl https://sdk.cloud.google.com | bash
-```
-
-7. Reload the VS Code environment:
-
-```
-code .
-```
-
-8. Install Google Cloud CLI components:
-
-```
-gcloud components install alpha beta skaffold minikube kubectl gke-gcloud-auth-plugin
-```
+1. Clone the repository.
+2. Navigate to the repository folder.
+3. Run the setup.sh script to install the required dependencies:
+    ```bash
+    ./setup.sh
+    ```
+4. Create a .env file and provide your Google Translate API access token:
+    ```bash
+    echo "ACCESS_TOKEN=\"your_access_token_here\"" > .env
+    ```
+5. Install the Google Cloud Code extension for Visual Studio Code (optional).
+6. Install the Google Cloud SDK by running the following command:
+    ```bash
+    curl https://sdk.cloud.google.com | bash
+    ```
+7. If you are using Visual Studio Code, reload the VS Code environment by running:
+    ```bash
+    code .
+    ```
+8. Install the required Google Cloud CLI components:
+    ```bash
+    gcloud components install alpha beta skaffold minikube kubectl gke-gcloud-auth-plugin
+    ```
 
 ## Usage
 
-Translate Python provides two main modules:
+The Translate-Python library provides the following modules:
 
-### `get_transcript.py`
-This module includes functions for extracting the YouTube video ID and retrieving the transcript from a given YouTube URL.
+1. `get_transcript.py`: This module contains functions for extracting transcripts from YouTube videos.
+2. `lang_translator.py`: This module includes functions for translating text to different languages.
+3. `streamlit_app.py`: This module implements a Streamlit application for summarizing and translating transcripts.
+4. `summarize.py`: This module provides functions for summarizing transcripts using TF-IDF.
+5. `using_palm.py`: This module demonstrates the usage of the PALM2 API for text generation.
 
-Example usage:
-```python
-from youtube_transcript_api import YouTubeTranscriptApi
-import re
-
-def get_youtube_video_id(url):
-    # Extract video id using regular expression
-    video_id_match = re.search(r'(?:v=|\\/)([A-Za-z0-9_-]{11})', url)
-    if video_id_match:
-        return video_id_match.group(1)
-    return None
-
-def get_transcript_from_url(url):
-    video_id = get_youtube_video_id(url)
-    if video_id:
-        transcript_data = YouTubeTranscriptApi.get_transcript(video_id)
-        # Combine all text segments into a single string
-        combined_text = " ".join([entry['text'] for entry in transcript_data])
-        return combined_text
-    else:
-        raise ValueError("Invalid YouTube URL")
-
-url = "https://m.youtube.com/watch?si=RExS6uPuY3JB2YSi&v=ZekOplAHwqs&feature=youtu.be"
-print(get_transcript_from_url(url))
-```
-
-### `lang_translator.py`
-This module includes functions for translating text using the Google Translate API.
-
-Example usage:
-```python
-import googletrans
-from googletrans import Translator, LANGUAGES
-
-def translate_text(input_text, target_language):
-    # Initialize the translator
-    translator = Translator()
-
-    # Translate the input text to the specified target language
-    try:
-        translation = translator.translate(input_text, dest=target_language)
-        return translation.text
-    except Exception as e:
-        return f"Translation Error: {str(e)}"
-
-input_text = "Hello, how are you?"
-target_language = "es"  # Change this to "en", "fr", or "zh-CN" for different languages
-translated_text = translate_text(input_text, target_language)
-print(translated_text)
-```
+To use any of the modules, import them into your Python script and call the relevant functions with the appropriate arguments.
 
 ## Features
 
-Translate Python provides the following features:
+Translate-Python offers the following features:
 
-- Retrieval of YouTube video transcripts
-- Language translation of text
+- Extraction of transcripts from YouTube videos.
+- Translation of text to different languages using the Google Translate API.
+- Summarization of transcripts using TF-IDF.
+- Streamlit application for GUI-based transcript summarization and translation.
+- Integration with the PALM2 API for advanced text generation.
 
 ## Contributing
 
-Contributions are welcome! To contribute to Translate Python, follow these steps:
-
-1. Fork this repository.
-2. Create a new branch: `git checkout -b my-branch-name`.
-3. Make your changes and commit them: `git commit -m 'My changes'`.
-4. Push to the original branch: `git push origin my-branch-name`.
-5. Create a pull request.
+Contributions to Translate-Python are welcome! If you have any ideas, improvements, or bug fixes, feel free to create a pull request. Please ensure that your code follows the repository's coding standards and is well-documented.
 
 ## License
 
-This project is licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For any questions or suggestions, please feel free to [contact us](mailto:example@example.com).
+For any inquiries or suggestions, please feel free to reach out to [your_email@example.com](mailto:your_email@example.com).
