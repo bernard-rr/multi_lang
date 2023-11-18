@@ -1,11 +1,8 @@
 # Translate Python
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/<username>/<repository>/blob/main/LICENSE)
-
-This repository contains Python scripts for translating and summarizing YouTube video transcripts using the YouTube Transcript API, Google Translate API, and AI-based summarization.
+Translate Python is a Python package that provides utilities for translating text and retrieving transcripts from YouTube videos. It utilizes the `googletrans` library for text translation and the `youtube_transcript_api` library for extracting video transcripts from YouTube.
 
 ## Table of Contents
-
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -16,129 +13,57 @@ This repository contains Python scripts for translating and summarizing YouTube 
 
 ## Introduction
 
-The Translate Python repository provides a set of Python scripts for translating and summarizing YouTube video transcripts. It leverages the `youtube-transcript-api` library to retrieve the transcript from a YouTube video URL and the `googletrans` library for language translation.
-
-The repository includes the following scripts:
-
-- `get_transcript.py`: Retrieves the transcript from a YouTube video URL using the YouTube Transcript API.
-- `lang_translator.py`: Translates text to a specified target language using the Google Translate API.
-- `summarize.py`: Uses TF-IDF to summarize a transcript text into a specified number of sentences.
-- `streamlit_app.py`: A Streamlit web app that allows users to summarize and translate YouTube video transcripts.
-- `setup.sh`: A shell script for setting up the required dependencies and environment.
+This repository contains Python scripts that enable translation of text and retrieval of YouTube video transcripts. The main functionalities are provided by `get_transcript.py` and `lang_translator.py` scripts. The `streamlit_app.py` script offers a user-friendly web interface for utilizing the translation and transcript summarization capabilities.
 
 ## Installation
 
-To use the scripts in this repository, follow these steps:
+To use this package, make sure you have Python 3.7 or higher installed. Follow the steps below to set up the required dependencies:
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/<username>/<repository>.git
-   ```
-
-2. Install the required Python dependencies from the `requirements.txt` file:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Create a `.env` file with an `ACCESS_TOKEN` variable. For example:
-
-   ```
-   ACCESS_TOKEN=""
-   ```
-
-4. Install the Google Cloud Code extension for Visual Studio Code:
-
-   ```bash
-   code --install-extension GoogleCloudTools.cloudcode
-   ```
-
-5. Install the Google Cloud SDK:
-
-   ```bash
-   curl https://sdk.cloud.google.com | bash
-   ```
-
-6. Reload the Visual Studio Code environment (if using a Visual Studio Code terminal):
-
-   ```bash
-   code .
-   ```
-
-7. Install the required Google Cloud CLI components:
-
-   ```bash
-   gcloud components install alpha beta skaffold minikube kubectl gke-gcloud-auth-plugin
-   ```
+1. Clone this repository to your local machine.
+2. Navigate to the repository's root directory.
+3. Run `pip install -r requirements.txt` to install the necessary Python dependencies.
+4. Create a `.env` file and provide an access token by adding the following line: `ACCESS_TOKEN=""`.
+5. Install the Google Cloud Code extension for Visual Studio Code by running `code --install-extension GoogleCloudTools.cloudcode` in your terminal.
+6. Install the Google Cloud SDK by executing `curl https://sdk.cloud.google.com | bash` in your terminal.
+7. If you are using Visual Studio Code, reload the environment by running `code .` in your terminal.
+8. Install the necessary Google Cloud CLI components by executing `gcloud components install alpha beta skaffold minikube kubectl gke-gcloud-auth-plugin` in your terminal.
 
 ## Usage
 
-This repository provides various scripts for translating and summarizing YouTube video transcripts. Here is an example of the usage for each script:
-
-### `get_transcript.py`
-
-The `get_transcript` module provides a function `get_transcript_from_url` to retrieve the transcript from a YouTube video URL:
+To use the translation functionality, import the `translate_text` function from `lang_translator.py`. Provide the input text and the target language code to translate the text. Here's an example:
 
 ```python
-from get_transcript import get_transcript_from_url
-
-url = "https://www.youtube.com/watch?v=VIDEO_ID"
-transcript = get_transcript_from_url(url)
-print(transcript)
-```
-
-### `lang_translator.py`
-
-The `lang_translator` module provides a function `translate_text` to translate text to a specified target language:
-
-```python
-from lang_translator import translate_text
-
 input_text = "Hello, how are you?"
 target_language = "es"  # Change this to "en", "fr", or "zh-CN" for different languages
 translated_text = translate_text(input_text, target_language)
 print(translated_text)
 ```
 
-### `summarize.py`
-
-The `summarize` module provides a function `summarize_transcript` to summarize a transcript:
+For extracting transcripts from YouTube videos, import the `get_transcript_from_url` function from `get_transcript.py`. Provide the YouTube URL, and the function will return the extracted transcript. Here's an example:
 
 ```python
-from summarize import summarize_transcript
-
-transcript_text = "This is a long transcript text..."
-summary = summarize_transcript(transcript_text, num_sentences=5)
-print(summary)
+url = "https://www.youtube.com/watch?v=3jGYHuBrYYQ"  # Replace with your YouTube URL
+transcript = get_transcript_from_url(url)
+print(transcript)
 ```
 
-### `streamlit_app.py`
-
-The `streamlit_app` module provides a Streamlit web app for summarizing and translating YouTube video transcripts. Run the following command to start the app:
-
-```bash
-streamlit run streamlit_app.py
-```
+To use the `streamlit_app.py` script with the translation and summarization capabilities, navigate to the repository's root directory and run `streamlit run streamlit_app.py` in your terminal.
 
 ## Features
 
-- Retrieve YouTube video transcripts using the YouTube Transcript API.
-- Translate text to different languages using the Google Translate API.
-- Summarize YouTube video transcripts using TF-IDF.
-- Web app for interactive transcript summarization and translation.
+- Translation of text to various languages.
+- Retrieval of transcripts from YouTube videos.
+- Summarization of YouTube video transcripts.
+- User-friendly web interface for translation and transcript summarization.
 
 ## Contributing
 
-Contributions are welcome! If you have any ideas, suggestions, or bug fixes, please open an issue or submit a pull request.
+If you have any suggestions, bug reports, or would like to contribute to this project, please open an issue or submit a pull request. Your contributions are greatly appreciated!
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/<username>/<repository>/blob/main/LICENSE).
+This project is licensed under the [MIT License](./LICENSE).
 
 ## Contact
 
-For any questions or inquiries, please contact:
-
-- Name: [Your Name]
-- Email: [Your Email]
+For questions or inquiries, please contact [EMAIL] at [EMAIL_ADDRESS].
