@@ -1,9 +1,9 @@
 # Translate Python
 
-Translate Python is a Python package that provides utilities for translating text and retrieving transcripts from YouTube videos. It utilizes the `googletrans` library for text translation and the `youtube_transcript_api` library for extracting video transcripts from YouTube.
+Translate Python is a Python package that provides utility functions for translating and summarizing text from YouTube videos. It utilizes popular libraries such as youtube_transcript_api, googletrans, and Streamlit to perform tasks like extracting transcripts, translating text, and summarizing content.
 
 ## Table of Contents
-- [Introduction](#introduction)
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
@@ -11,59 +11,96 @@ Translate Python is a Python package that provides utilities for translating tex
 - [License](#license)
 - [Contact](#contact)
 
-## Introduction
-
-This repository contains Python scripts that enable translation of text and retrieval of YouTube video transcripts. The main functionalities are provided by `get_transcript.py` and `lang_translator.py` scripts. The `streamlit_app.py` script offers a user-friendly web interface for utilizing the translation and transcript summarization capabilities.
-
 ## Installation
 
-To use this package, make sure you have Python 3.7 or higher installed. Follow the steps below to set up the required dependencies:
+To use the Translate Python package, follow these steps:
 
-1. Clone this repository to your local machine.
-2. Navigate to the repository's root directory.
-3. Run `pip install -r requirements.txt` to install the necessary Python dependencies.
-4. Create a `.env` file and provide an access token by adding the following line: `ACCESS_TOKEN=""`.
-5. Install the Google Cloud Code extension for Visual Studio Code by running `code --install-extension GoogleCloudTools.cloudcode` in your terminal.
-6. Install the Google Cloud SDK by executing `curl https://sdk.cloud.google.com | bash` in your terminal.
-7. If you are using Visual Studio Code, reload the environment by running `code .` in your terminal.
-8. Install the necessary Google Cloud CLI components by executing `gcloud components install alpha beta skaffold minikube kubectl gke-gcloud-auth-plugin` in your terminal.
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/{username}/{repository}.git
+   ```
+
+2. Install Python dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Create a `.env` file with your API access token:
+
+   ```bash
+   echo "ACCESS_TOKEN=\"\"" > .env
+   ```
+
+4. Install the Google Cloud Code extension for Visual Studio Code:
+
+   ```bash
+   code --install-extension GoogleCloudTools.cloudcode
+   ```
+
+5. Install the Google Cloud SDK:
+
+   ```bash
+   curl https://sdk.cloud.google.com | bash
+   ```
+
+6. Reload the Visual Studio Code environment:
+
+   ```bash
+   code .
+   ```
+
+7. Install additional Google Cloud CLI components:
+
+   ```bash
+   gcloud components install alpha beta skaffold minikube kubectl gke-gcloud-auth-plugin
+   ```
 
 ## Usage
 
-To use the translation functionality, import the `translate_text` function from `lang_translator.py`. Provide the input text and the target language code to translate the text. Here's an example:
+The Translate Python package provides the following utility functions:
+
+- `get_youtube_video_id(url)`: Extracts the video ID from a YouTube URL.
+- `get_transcript_from_url(url)`: Retrieves the transcript of a YouTube video using the video ID.
+- `translate_text(input_text, target_language)`: Translates the input text to the specified target language.
+- `summarize_transcript(transcript_text, num_sentences)`: Generates a summary of the transcript using TF-IDF scoring.
+- `using_palm(text, api_key)`: Uses the PALM2 API to generate a detailed and fun summary of the input text.
+
+To use these functions in your Python script, import the corresponding module as follows:
 
 ```python
-input_text = "Hello, how are you?"
-target_language = "es"  # Change this to "en", "fr", or "zh-CN" for different languages
-translated_text = translate_text(input_text, target_language)
-print(translated_text)
+from get_transcript import get_transcript_from_url
+from lang_translator import translate_text
+from summarize import summarize_transcript
+from using_palm import using_palm
 ```
 
-For extracting transcripts from YouTube videos, import the `get_transcript_from_url` function from `get_transcript.py`. Provide the YouTube URL, and the function will return the extracted transcript. Here's an example:
-
-```python
-url = "https://www.youtube.com/watch?v=3jGYHuBrYYQ"  # Replace with your YouTube URL
-transcript = get_transcript_from_url(url)
-print(transcript)
-```
-
-To use the `streamlit_app.py` script with the translation and summarization capabilities, navigate to the repository's root directory and run `streamlit run streamlit_app.py` in your terminal.
+Refer to the example usage within each module for sample code and output.
 
 ## Features
 
-- Translation of text to various languages.
-- Retrieval of transcripts from YouTube videos.
-- Summarization of YouTube video transcripts.
-- User-friendly web interface for translation and transcript summarization.
+The Translate Python package offers the following features:
+
+- Extracting YouTube video transcripts using the YouTube transcript API.
+- Translating text to various languages using the Google Translate API.
+- Summarizing transcripts using the TF-IDF algorithm.
+- Generating detailed and fun summaries using the PALM2 API.
 
 ## Contributing
 
-If you have any suggestions, bug reports, or would like to contribute to this project, please open an issue or submit a pull request. Your contributions are greatly appreciated!
+If you would like to contribute to this project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch.
+3. Make your changes and commit them.
+4. Push your changes to your forked repository.
+5. Submit a pull request.
 
 ## License
 
-This project is licensed under the [MIT License](./LICENSE).
+This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For questions or inquiries, please contact [EMAIL] at [EMAIL_ADDRESS].
+If you have any questions or suggestions, feel free to reach out to me at [email@example.com](mailto:email@example.com).
